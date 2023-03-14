@@ -10,7 +10,6 @@ public class RegenwormenPresentor {
     private RegenwormenModel model;
     private RegenwormenView view;
     private boolean thrown;
-
     public RegenwormenPresentor(RegenwormenModel model, RegenwormenView view) {
         this.model = model;
         this.view = view;
@@ -56,6 +55,7 @@ public class RegenwormenPresentor {
         });
     }
     private void checkKapotOrFinished() {
+        model.checkKapotOrFinished();
         if (model.getCurrentRoll().isKapot()) {
             model.kapot();
             view.kapot();

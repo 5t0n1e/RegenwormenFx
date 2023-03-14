@@ -112,7 +112,10 @@ public class RegenwormenView extends BorderPane {
         topPane.add(currentPlayer, 0, 0);
         for (int i = 0; i < this.players.size(); i++) {
             if (players.get(i).getTegels().size() > 0)
-                this.players.get(i).setImage(new Image("resources/TegelTemplate.png")); // players.get(i).getTegels().get(i)
+                this.players.get(i).setImage(new Image("resources/TegelTemplate.png"));// players.get(i).getTegels().get(i)
+            else {
+                this.players.get(i).setImage(new Image("resources/player.png"));
+            }
         }
     }
     public void kapot() {

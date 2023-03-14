@@ -102,8 +102,10 @@ public class RegenwormenModel {
         }
         currentRoll = new Roll(nextPlayer);
     }
-
-
+    public void checkKapotOrFinished(){
+        currentRoll.checkKapot();
+        currentRoll.checkFinished();
+    }
     public List<Tegel> getTegels() {
         return tegels;
     }
@@ -116,4 +118,5 @@ public class RegenwormenModel {
     public Roll getCurrentRoll() {
         return currentRoll;
     }
+
 }
