@@ -1,8 +1,6 @@
 import Model.RegenwormenModel;
-import View.Home.HomePresentor;
+import View.Home.HomePresenter;
 import View.Home.HomeView;
-import View.Regenwormen.RegenwormenView;
-import View.Regenwormen.RegenwormenPresentor;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +14,7 @@ public class Main extends Application{
     public void start(Stage stage) throws Exception {
         HomeView view = new HomeView();
         RegenwormenModel model = new RegenwormenModel();
-        HomePresentor presentor = new HomePresentor(model, view);
+        HomePresenter presentor = new HomePresenter(model, view);
         stage.setScene(new Scene(view));
         stage.setTitle("Regenwormen");
         stage.setWidth(1600);
