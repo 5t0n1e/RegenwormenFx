@@ -22,8 +22,8 @@ public class AmountPresenter {
         view.getConfirm().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String input = view.getPlayerAmountInput().getText();
                 try {
+                    String input = view.getPlayerAmountInput().getText();
                     int inputInt = Integer.parseInt(input);
                     if (!(inputInt > 1 && inputInt <= 8)) {
                         throw new RegenwormenException("Geef een nummer tussen 1 en 9!");
