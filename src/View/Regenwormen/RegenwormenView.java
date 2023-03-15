@@ -154,4 +154,12 @@ public class RegenwormenView extends BorderPane {
     public Button getStopRoll() {
         return stopRoll;
     }
+    public void endGame(Player winner) {
+        Alert end = new Alert(Alert.AlertType.INFORMATION);
+        end.setTitle("Game ended");
+        end.setHeaderText(String.format("""
+                The game has ended!!
+                %s has won the game""", winner.getName()));
+        end.showAndWait();
+    }
 }
