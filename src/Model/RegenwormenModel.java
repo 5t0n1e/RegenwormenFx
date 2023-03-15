@@ -10,8 +10,11 @@ public class RegenwormenModel {
     private List<Player> players;
     private Dice dice;
     private Roll currentRoll;
+    private final int TEGEL_AMOUNT;
+
     public RegenwormenModel() {
         dice = new Dice();
+        TEGEL_AMOUNT = 17;
         tegels = initTegels();
     }
     public void rollDice() {
@@ -34,7 +37,7 @@ public class RegenwormenModel {
     public List<Tegel> initTegels() {
         List<Tegel> tegels = new LinkedList<>();
         int wurms = 1;
-        for (int i = 1; i < 2; i++) {
+        for (int i = 1; i < TEGEL_AMOUNT; i++) {
             if (i % 4 == 0)
                 wurms++;
             Tegel tegel = new Tegel(wurms, i + 20);
