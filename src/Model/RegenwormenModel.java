@@ -10,12 +10,10 @@ public class RegenwormenModel {
     private List<Player> players;
     private Dice dice;
     private Roll currentRoll;
-
     public RegenwormenModel() {
         dice = new Dice();
         tegels = initTegels();
     }
-
     public void rollDice() {
         currentRoll.resetRolls();
         for (int i = 0; i < currentRoll.getrollSize(); i++) {
@@ -36,7 +34,7 @@ public class RegenwormenModel {
     public List<Tegel> initTegels() {
         List<Tegel> tegels = new LinkedList<>();
         int wurms = 1;
-        for (int i = 1; i < 17; i++) {
+        for (int i = 1; i < 2; i++) {
             if (i % 4 == 0)
                 wurms++;
             Tegel tegel = new Tegel(wurms, i + 20);
@@ -44,7 +42,6 @@ public class RegenwormenModel {
         }
         return tegels;
     }
-
     public void updateRoll(int side) {
         currentRoll.sideUpdate(side);
     }
@@ -102,6 +99,13 @@ public class RegenwormenModel {
         }
         currentRoll = new Roll(nextPlayer);
     }
+    public boolean checkEnd() {
+        if (tegels.size() == 0) {
+            Collections.sort(players);
+            return true;
+        }
+        return false;
+    }
     public void checkKapotOrFinished(){
         currentRoll.checkKapot();
         currentRoll.checkFinished();
@@ -118,5 +122,4 @@ public class RegenwormenModel {
     public Roll getCurrentRoll() {
         return currentRoll;
     }
-
 }
