@@ -112,7 +112,10 @@ public class RegenwormenView extends BorderPane {
         topPane.add(currentPlayer, 0, 0);
         for (int i = 0; i < this.players.size(); i++) {
             if (players.get(i).getTegels().size() > 0)
-                this.players.get(i).setImage(new Image("resources/TegelTemplate.png")); // players.get(i).getTegels().get(i)
+                this.players.get(i).setImage(new Image("resources/TegelTemplate.png"));// players.get(i).getTegels().get(i)
+            else {
+                this.players.get(i).setImage(new Image("resources/player.png"));
+            }
         }
     }
     public void kapot() {
@@ -150,5 +153,13 @@ public class RegenwormenView extends BorderPane {
     }
     public Button getStopRoll() {
         return stopRoll;
+    }
+    public void endGame(Player winner) {
+        Alert end = new Alert(Alert.AlertType.INFORMATION);
+        end.setTitle("Game ended");
+        end.setHeaderText(String.format("""
+                The game has ended!!
+                %s has won the game""", winner.getName()));
+        end.showAndWait();
     }
 }

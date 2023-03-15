@@ -30,8 +30,6 @@ public class Roll {
                 rollSize--;
             }
         }
-        checkFinished();
-        checkKapot();
     }
     public void checkFinished() {
         if (rolls.size() == 0) {

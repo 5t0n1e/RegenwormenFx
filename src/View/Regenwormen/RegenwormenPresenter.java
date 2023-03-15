@@ -2,16 +2,20 @@ package View.Regenwormen;
 
 import Model.RegenwormenModel;
 import View.Die;
+import View.Player.Names.NamesPresenter;
+import View.Player.Names.NamesView;
+import View.RegenwormenEnd.RegenwormenEndPresenter;
+import View.RegenwormenEnd.RegenwormenEndView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 
-public class RegenwormenPresentor {
+public class RegenwormenPresenter {
     private RegenwormenModel model;
     private RegenwormenView view;
     private boolean thrown;
-
-    public RegenwormenPresentor(RegenwormenModel model, RegenwormenView view) {
+    public RegenwormenPresenter(RegenwormenModel model, RegenwormenView view) {
         this.model = model;
         this.view = view;
         thrown = false;
@@ -56,6 +60,13 @@ public class RegenwormenPresentor {
         });
     }
     private void checkKapotOrFinished() {
+        model.checkKapotOrFinished();
+        if (model.checkEnd()) {
+            RegenwormenEndView endView = new RegenwormenEndView();
+            RegenwormenEndPresenter presentor = new RegenwormenEndPresenter(model, endView);
+            Scene scene = view.getScene();
+            scene.setRoot(endView);
+        }
         if (model.getCurrentRoll().isKapot()) {
             model.kapot();
             view.kapot();
