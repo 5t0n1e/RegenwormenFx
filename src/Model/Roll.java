@@ -27,6 +27,7 @@ public class Roll {
         for (Iterator<Integer> rollIter = rolls.iterator(); rollIter.hasNext();) {
             if ( rollIter.next() == side) {
                 rollIter.remove();
+                totalNumber += side;
                 rollSize--;
             }
         }

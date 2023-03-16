@@ -55,11 +55,11 @@ public class RegenwormenModel {
         if (!(currentRoll.getSelected().containsKey(6))) {
             currentRoll.setKapot(true);
         }
-        int number = 0;
-        for (Map.Entry<Integer, Integer> select : currentRoll.getSelected().entrySet()) {
-            number += select.getKey() * select.getValue();
-        }
-        currentRoll.setTotalNumber(number);
+        //int number = 0;
+        //for (Map.Entry<Integer, Integer> select : currentRoll.getSelected().entrySet()) {
+        //    number += select.getKey() * select.getValue();
+        //}
+        //currentRoll.setTotalNumber(number);
         currentRoll.setFinished(true);
         getTegel();
     }
@@ -112,6 +112,21 @@ public class RegenwormenModel {
     public void checkKapotOrFinished(){
         currentRoll.checkKapot();
         currentRoll.checkFinished();
+    }
+    public boolean checkSteal(int stealNumber) {
+        if (stealNumber == currentRoll.getTotalNumber()) {
+            return true;
+        }
+        return false;
+    }
+    public void steal() {
+        for (Player stealPlayer : players) {
+            List<Tegel> playerTegels = stealPlayer.getTegels();
+            if (playerTegels.size() > 0 && playerTegels.get(playerTegels.size() - 1).getNumber() == currentRoll.getTotalNumber()) {
+                currentRoll.getPlayer().addTegel(playerTegels.get(playerTegels.size() - 1));
+                stealPlayer.removeTegel(currentRoll.getTotalNumber());
+            }
+        }
     }
     public List<Tegel> getTegels() {
         return tegels;

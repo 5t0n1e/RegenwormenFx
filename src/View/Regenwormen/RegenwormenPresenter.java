@@ -1,14 +1,14 @@
 package View.Regenwormen;
 
 import Model.RegenwormenModel;
-import View.Die;
-import View.Player.Names.NamesPresenter;
-import View.Player.Names.NamesView;
+import View.DiceImage;
 import View.RegenwormenEnd.RegenwormenEndPresenter;
 import View.RegenwormenEnd.RegenwormenEndView;
+import View.TegelImage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class RegenwormenPresenter {
@@ -22,7 +22,6 @@ public class RegenwormenPresenter {
         view.initialiseNodes(model.getPlayers(), model.getTegels());
         handleEvents();
     }
-
     private void handleEvents() {
         view.getThrowDice().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -35,7 +34,7 @@ public class RegenwormenPresenter {
                 }
             }
         });
-        for (Die dice : view.getDices()) {
+        for (DiceImage dice : view.getDices()) {
             dice.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -58,6 +57,18 @@ public class RegenwormenPresenter {
                 }
             }
         });
+        for (TegelImage tegel : view.getPlayers()) {
+            tegel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (model.checkSteal(tegel.getNumber()) && !thrown) {
+                        model.steal();
+                        model.createNextRoll();
+                        updateView();
+                    }
+                }
+            });
+        }
     }
     private void checkKapotOrFinished() {
         model.checkKapotOrFinished();
@@ -69,6 +80,7 @@ public class RegenwormenPresenter {
         }
         if (model.getCurrentRoll().isKapot()) {
             model.kapot();
+            updateView();
             view.kapot();
             thrown = false;
             model.createNextRoll();
