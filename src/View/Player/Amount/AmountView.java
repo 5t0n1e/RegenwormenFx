@@ -29,6 +29,8 @@ public class AmountView extends BorderPane {
         playerAmountInput = new TextField();
         info = new Label("How many players?");
         confirm = new Button("CONFIRM");
+        playerAmountInput.setMinSize(100, 20);
+        playerAmountInput.setMaxSize(100, 20);
     }
 
     public TextField getPlayerAmountInput() {
