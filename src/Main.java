@@ -17,8 +17,8 @@ public class Main extends Application{
         HomePresenter presentor = new HomePresenter(model, view);
         stage.setScene(new Scene(view));
         stage.setTitle("Regenwormen");
-        stage.setWidth(1600);
-        stage.setHeight(1200);
+        stage.setWidth(1920);
+        stage.setHeight(1080);
         stage.show();
     }
 }
