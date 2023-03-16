@@ -4,6 +4,7 @@ import Model.Player;
 import Model.Roll;
 import Model.Tegel;
 import View.Die;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,6 +29,8 @@ public class RegenwormenView extends BorderPane {
     public RegenwormenView() {
         topPane = new GridPane();
         bottemPane = new GridPane();
+        topPane.setAlignment(Pos.CENTER);
+        bottemPane.setAlignment(Pos.CENTER);
         centerPanes = new VBox(topPane, bottemPane);
         setCenter(centerPanes);
         throwDice = new Button("Gooi dices");
@@ -35,6 +38,8 @@ public class RegenwormenView extends BorderPane {
         dices = new Die[8];
         thrownDices = new HBox();
         chosenDices = new HBox();
+        thrownDices.setAlignment(Pos.TOP_RIGHT);
+        chosenDices.setAlignment(Pos.BOTTOM_LEFT);
         for (int i = 0; i < dices.length; i++) {
             dices[i] = new Die();
         }
@@ -56,7 +61,7 @@ public class RegenwormenView extends BorderPane {
         int split = players.size()/2;
         for (int i = 0; i < players.size(); i++) {
             this.players.add(new ImageView("resources/player.png"));
-            this.players.get(i).setFitWidth(200);
+            this.players.get(i).setFitWidth(150);
             this.players.get(i).setFitHeight(300);
             names.add(new Label(players.get(i).getName()));
             if (i <= split - 1) {
@@ -96,7 +101,7 @@ public class RegenwormenView extends BorderPane {
         topPane.getChildren().clear();
         this.tegels = new ArrayList<>();
         for (int i = 0; i < tegels.size(); i++) {
-            this.tegels.add(new ImageView("resources/TegelTemplate.png"));
+            this.tegels.add(new ImageView(String.format("resources/Tegel%d.png", tegels.get(i).getNumber())));
             this.tegels.get(i).setFitHeight(260);
             this.tegels.get(i).setFitWidth(130);
             if (i<8) {
@@ -111,9 +116,10 @@ public class RegenwormenView extends BorderPane {
         currentPlayer.setText(String.format("%s is aan de beurt!!", currentRoll.getPlayer().getName()));
         topPane.add(currentPlayer, 0, 0);
         for (int i = 0; i < this.players.size(); i++) {
-            if (players.get(i).getTegels().size() > 0)
-                this.players.get(i).setImage(new Image("resources/TegelTemplate.png"));// players.get(i).getTegels().get(i)
-            else {
+            if (players.get(i).getTegels().size() > 0) {
+                List<Tegel> playerTegels = players.get(i).getTegels();
+                this.players.get(i).setImage(new Image(String.format("resources/Tegel%d.png",playerTegels.get(playerTegels.size()-1).getNumber())));
+            } else {
                 this.players.get(i).setImage(new Image("resources/player.png"));
             }
         }
