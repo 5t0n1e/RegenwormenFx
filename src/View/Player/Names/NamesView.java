@@ -1,6 +1,7 @@
 package View.Player.Names;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,10 +15,12 @@ public class NamesView extends BorderPane {
     private TextField[] playerNames;
     private Label info;
     private Button confirm;
+
     public NamesView(int nameAmount) {
         initialiseNodes(nameAmount);
         layoutNodes();
     }
+
     private void layoutNodes() {
         VBox menu = new VBox(info);
         for (int i = 0; i < playerNames.length; i++) {
@@ -29,7 +32,7 @@ public class NamesView extends BorderPane {
         menu.getChildren().add(confirm);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/home.png"), null, null, null, null)));
     }
 
     private void initialiseNodes(int nameAmount) {

@@ -17,6 +17,7 @@ public class RegenwormenModel {
         TEGEL_AMOUNT = 17;
         tegels = initTegels();
     }
+
     public void rollDice() {
         currentRoll.resetRolls();
         for (int i = 0; i < currentRoll.getrollSize(); i++) {
@@ -31,6 +32,7 @@ public class RegenwormenModel {
         this.players = players;
         currentRoll = new Roll(players.get(0));
     }
+
     /**
      * Initiëren van de tegels in het spel
      */
@@ -38,31 +40,30 @@ public class RegenwormenModel {
         List<Tegel> tegels = new LinkedList<>();
         int wurms = 1;
         for (int i = 1; i < TEGEL_AMOUNT; i++) {
-            if (i % 4 == 0)
-                wurms++;
             Tegel tegel = new Tegel(wurms, i + 20);
             tegels.add(tegel);
+            if (i % 4 == 0)
+                wurms++;
         }
         return tegels;
     }
+
     public void updateRoll(int side) {
         currentRoll.sideUpdate(side);
     }
+
     public boolean checkChoice(int face) {
         return !(currentRoll.getSelected().containsKey(face));
     }
+
     public void finishRoll() {
         if (!(currentRoll.getSelected().containsKey(6))) {
             currentRoll.setKapot(true);
         }
-        //int number = 0;
-        //for (Map.Entry<Integer, Integer> select : currentRoll.getSelected().entrySet()) {
-        //    number += select.getKey() * select.getValue();
-        //}
-        //currentRoll.setTotalNumber(number);
         currentRoll.setFinished(true);
         getTegel();
     }
+
     public void getTegel() {
         // Normaal tegel pak systeem
         Tegel tegel = null;
@@ -78,6 +79,7 @@ public class RegenwormenModel {
             currentRoll.setKapot(true);
         }
     }
+
     public void kapot() {
         List<Tegel> playerTegels = currentRoll.getPlayer().getTegels();
         currentRoll.setKapot(true);
@@ -89,6 +91,7 @@ public class RegenwormenModel {
         if (tegels.size() > 0)
             tegels.remove(tegels.size() - 1);
     }
+
     public void createNextRoll() {
         Player nextPlayer = null;
         for (int i = 0; i < players.size(); i++) {
@@ -96,12 +99,13 @@ public class RegenwormenModel {
                 if (i == players.size() - 1) {
                     nextPlayer = players.get(0);
                 } else {
-                    nextPlayer = players.get(i+1);
+                    nextPlayer = players.get(i + 1);
                 }
             }
         }
         currentRoll = new Roll(nextPlayer);
     }
+
     public boolean checkEnd() {
         if (tegels.size() == 0) {
             Collections.sort(players);
@@ -109,16 +113,19 @@ public class RegenwormenModel {
         }
         return false;
     }
-    public void checkKapotOrFinished(){
+
+    public void checkKapotOrFinished() {
         currentRoll.checkKapot();
         currentRoll.checkFinished();
     }
+
     public boolean checkSteal(int stealNumber) {
         if (stealNumber == currentRoll.getTotalNumber()) {
             return true;
         }
         return false;
     }
+
     public void steal() {
         for (Player stealPlayer : players) {
             List<Tegel> playerTegels = stealPlayer.getTegels();
@@ -128,15 +135,15 @@ public class RegenwormenModel {
             }
         }
     }
+
     public List<Tegel> getTegels() {
         return tegels;
     }
+
     public List<Player> getPlayers() {
         return players;
     }
-    public Dice getDice() {
-        return dice;
-    }
+
     public Roll getCurrentRoll() {
         return currentRoll;
     }

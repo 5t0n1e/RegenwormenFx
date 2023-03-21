@@ -23,6 +23,7 @@ public class NamesPresenter {
         this.view = view;
         handleEvents();
     }
+
     private void handleEvents() {
         view.getConfirm().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -46,6 +47,7 @@ public class NamesPresenter {
             }
         });
     }
+
     private void alert(String message) {
         Alert ex = new Alert(Alert.AlertType.ERROR, message);
         ex.showAndWait();

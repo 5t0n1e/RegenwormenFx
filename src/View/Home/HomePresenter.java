@@ -16,6 +16,7 @@ public class HomePresenter {
         this.view = view;
         handleEvents();
     }
+
     private void handleEvents() {
         view.getStart().setOnAction(new EventHandler<ActionEvent>() {
             @Override

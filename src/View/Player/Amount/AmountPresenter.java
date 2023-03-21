@@ -18,7 +18,8 @@ public class AmountPresenter {
         this.view = view;
         handleEvents();
     }
-    private void handleEvents(){
+
+    private void handleEvents() {
         view.getConfirm().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -32,14 +33,15 @@ public class AmountPresenter {
                     NamesPresenter presentor = new NamesPresenter(model, namesView);
                     Scene scene = view.getScene();
                     scene.setRoot(namesView);
-                } catch(NumberFormatException ex) {
+                } catch (NumberFormatException ex) {
                     alertBox("Geef een nummer!!");
-                } catch(RegenwormenException ex) {
+                } catch (RegenwormenException ex) {
                     alertBox(ex.getMessage());
                 }
             }
         });
     }
+
     private void alertBox(String message) {
         Alert ex = new Alert(Alert.AlertType.ERROR, message);
         ex.showAndWait();

@@ -15,6 +15,7 @@ public class RegenwormenPresenter {
     private RegenwormenModel model;
     private RegenwormenView view;
     private boolean thrown;
+
     public RegenwormenPresenter(RegenwormenModel model, RegenwormenView view) {
         this.model = model;
         this.view = view;
@@ -22,6 +23,7 @@ public class RegenwormenPresenter {
         view.initialiseNodes(model.getPlayers(), model.getTegels());
         handleEvents();
     }
+
     private void handleEvents() {
         view.getThrowDice().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -70,6 +72,7 @@ public class RegenwormenPresenter {
             });
         }
     }
+
     private void checkKapotOrFinished() {
         model.checkKapotOrFinished();
         if (model.checkEnd()) {
@@ -88,6 +91,7 @@ public class RegenwormenPresenter {
             model.createNextRoll();
         }
     }
+
     private void updateView() {
         view.updateTegels(model.getTegels());
         view.updatePlayers(model.getPlayers(), model.getCurrentRoll());

@@ -7,10 +7,12 @@ import java.util.List;
 public class Player implements Comparable<Player> {
     private final String name;
     private List<Tegel> tegels;
+
     public Player(String name) {
         this.name = name;
         tegels = new ArrayList<>();
     }
+
     public String getName() {
         return name;
     }
@@ -26,6 +28,7 @@ public class Player implements Comparable<Player> {
     public void removeTegel(int number) {
         tegels.removeIf(tegel -> tegel.getNumber() == number);
     }
+
     public int getTotalWurms() {
         int worms = 0;
         for (Tegel tegel : tegels) {
@@ -33,8 +36,9 @@ public class Player implements Comparable<Player> {
         }
         return worms;
     }
+
     @Override
     public int compareTo(Player o) {
-        return getTotalWurms() - o.getTotalWurms();
+        return o.getTotalWurms() - getTotalWurms();
     }
 }

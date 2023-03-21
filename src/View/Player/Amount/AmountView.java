@@ -14,15 +14,17 @@ public class AmountView extends BorderPane {
     private TextField playerAmountInput;
     private Label info;
     private Button confirm;
+
     public AmountView() {
         initialiseNodes();
         layoutNodes();
     }
+
     private void layoutNodes() {
         VBox menu = new VBox(info, playerAmountInput, confirm);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/home.png"), null, null, null, null)));
     }
 
     private void initialiseNodes() {

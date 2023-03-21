@@ -5,12 +5,12 @@ import Model.Roll;
 import Model.Tegel;
 import View.DiceImage;
 import View.TegelImage;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.*;
@@ -20,33 +20,55 @@ public class RegenwormenView extends BorderPane {
     private DiceImage[] dices;
     private List<Label> names;
     private GridPane topPane;
-    private BorderPane bottemPane;
+    private BorderPane playboard;
     private Button throwDice, stopRoll;
     private Label currentPlayer;
     private HBox thrownDices, chosenDices;
-    private VBox centerPanes;
 
     public RegenwormenView() {
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/home.png"), null, null, null, null)));
+
         topPane = new GridPane();
-        bottemPane = new BorderPane();
-        bottemPane.setBackground(new Background(new BackgroundImage(new Image("resources/Spelbord.png"), null, null, null, null)));
         topPane.setAlignment(Pos.CENTER);
-        bottemPane.setMaxWidth(820);
-        bottemPane.setMaxHeight(273);
-        bottemPane.setMinHeight(273);
-        bottemPane.setMinWidth(820);
-        centerPanes = new VBox(topPane, bottemPane);
-        centerPanes.setAlignment(Pos.CENTER);
-        setCenter(centerPanes);
-        throwDice = new Button("Gooi dices");
-        throwDice.setBackground(new Background(new BackgroundImage(new Image("resources/Werp_dobbelstenen.jpg"), null, null, null, null)));
-        stopRoll = new Button("Stop worp");
+        setCenter(topPane);
+
+        playboard = new BorderPane();
+        playboard.setBackground(new Background(new BackgroundImage(new Image("resources/spelbord.png"), null, null, null, null)));
+        playboard.setMinHeight(273);
+        playboard.setMinWidth(820);
+        playboard.setMaxHeight(273);
+        playboard.setMaxWidth(820);
+        playboard.setPadding(new Insets(15));
+
+        throwDice = new Button();
+        throwDice.setBackground(new Background(new BackgroundImage(new Image("resources/throw.png"), null, null, null, null)));
+        throwDice.setMinSize(259, 194);
+
+        stopRoll = new Button();
+        stopRoll.setBackground(new Background(new BackgroundImage(new Image("resources/stop.png"), null, null, null, null)));
+        stopRoll.setMinSize(259, 194);
+
+        Region region1 = new Region();
+        HBox.setHgrow(region1, Priority.ALWAYS);
+
+        Region region2 = new Region();
+        HBox.setHgrow(region2, Priority.ALWAYS);
+
+        HBox bottomPanes = new HBox(throwDice, region1, playboard, region2, stopRoll);
+        bottomPanes.setPadding(new Insets(50));
+        bottomPanes.setSpacing(50);
+        setBottom(bottomPanes);
+
         dices = new DiceImage[8];
+
         thrownDices = new HBox();
-        chosenDices = new HBox();
+        thrownDices.setSpacing(10);
         thrownDices.setAlignment(Pos.TOP_RIGHT);
+
+        chosenDices = new HBox();
+        chosenDices.setSpacing(10);
         chosenDices.setAlignment(Pos.BOTTOM_LEFT);
+
         for (int i = 0; i < dices.length; i++) {
             dices[i] = new DiceImage();
         }
@@ -55,7 +77,6 @@ public class RegenwormenView extends BorderPane {
     public void initialiseNodes(List<Player> players, List<Tegel> tegels) {
         updateTegels(tegels);
         showPlayers(players);
-        setBottom(new HBox(throwDice, stopRoll));
         currentPlayer = new Label(String.format("%s is aan de beurt!!", players.get(0).getName()));
         topPane.add(currentPlayer, 0, 0);
         topPane.setVgap(20);
@@ -65,11 +86,12 @@ public class RegenwormenView extends BorderPane {
     private void showPlayers(List<Player> players) {
         this.players = new ArrayList<>();
         this.names = new ArrayList<>();
+        Random gen = new Random();
         VBox playersRight = new VBox();
         VBox playersLeft = new VBox();
         int split = players.size() / 2;
         for (int i = 0; i < players.size(); i++) {
-            this.players.add(new TegelImage("resources/player.png"));
+            this.players.add(new TegelImage(String.format("resources/Player%d.png", gen.nextInt(1, 5))));
             this.players.get(i).setFitWidth(150);
             this.players.get(i).setFitHeight(300);
             names.add(new Label(players.get(i).getName()));
@@ -86,7 +108,7 @@ public class RegenwormenView extends BorderPane {
     public void updateDices(Roll roll) {
         thrownDices.getChildren().clear();
         chosenDices.getChildren().clear();
-        bottemPane.getChildren().clear();
+        playboard.getChildren().clear();
         List<Integer> rolls = roll.getRolls();
         int diceCounter = 0;
         for (Integer rolled : rolls) {
@@ -102,9 +124,8 @@ public class RegenwormenView extends BorderPane {
                 diceCounter++;
             }
         }
-        bottemPane.setRight(thrownDices);
-        bottemPane.setLeft(chosenDices);
-
+        playboard.setRight(thrownDices);
+        playboard.setLeft(chosenDices);
     }
 
     public void updateTegels(List<Tegel> tegels) {
@@ -136,7 +157,7 @@ public class RegenwormenView extends BorderPane {
                 player.setWurms(tegel.getWurms());
             } else {
                 TegelImage player = this.players.get(i);
-                player.setImage(new Image("resources/player.png"));
+                player.setImage(new Image(player.getInitPath()));
                 player.setNumber(0);
                 player.setWurms(0);
             }
@@ -154,48 +175,19 @@ public class RegenwormenView extends BorderPane {
         return players;
     }
 
-    public List<TegelImage> getTegels() {
-        return tegels;
-    }
-
     public HBox getThrownDices() {
         return thrownDices;
-    }
-
-    public HBox getChosenDices() {
-        return chosenDices;
     }
 
     public DiceImage[] getDices() {
         return dices;
     }
 
-    public List<Label> getNames() {
-        return names;
-    }
-
-    public GridPane getCenterPane() {
-        return topPane;
-    }
-
     public Button getThrowDice() {
         return throwDice;
     }
 
-    public Label getCurrentPlayer() {
-        return currentPlayer;
-    }
-
     public Button getStopRoll() {
         return stopRoll;
-    }
-
-    public void endGame(Player winner) {
-        Alert end = new Alert(Alert.AlertType.INFORMATION);
-        end.setTitle("Game ended");
-        end.setHeaderText(String.format("""
-                The game has ended!!
-                %s has won the game""", winner.getName()));
-        end.showAndWait();
     }
 }
