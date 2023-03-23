@@ -41,12 +41,12 @@ public class NamesPresenter {
                 Scene scene = view.getScene();
                 scene.setRoot(namesView);
             } catch (RegenwormenException ex) {
-                alert(ex.getMessage());
+                alertBox(ex.getMessage());
             }
         });
     }
 
-    private void alert(String message) {
+    private void alertBox(String message) {
         Alert ex = new Alert(Alert.AlertType.ERROR, message);
         ex.showAndWait();
     }
