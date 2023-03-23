@@ -7,7 +7,8 @@ import java.util.*;
 
 public class FileHandeling {
     List<String> paths;
-    public FileHandeling(){
+
+    public FileHandeling() {
         paths = new ArrayList<>();
         paths.add(null);
         paths.add(null);
@@ -30,17 +31,19 @@ public class FileHandeling {
             System.out.println(e.getMessage());
         }
     }
+
     public void updateConfig(String out) {
-        try (Formatter output = new Formatter(paths.get(0))){
+        try (Formatter output = new Formatter(paths.get(0))) {
             output.format(out);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void updateHighScores(Player winner) {
         Map<Integer, String> highScores = new TreeMap<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(new File(paths.get(1))));
+            BufferedReader reader = new BufferedReader(new FileReader(paths.get(1)));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 String[] split = line.split("\\s");
                 highScores.put(Integer.parseInt(split[4]), split[0]);
@@ -53,12 +56,13 @@ public class FileHandeling {
         for (Map.Entry<Integer, String> winnerEntry : highScores.entrySet()) {
             out.append(String.format("%s had %d wormen!!", winnerEntry.getValue(), winnerEntry.getKey()));
         }
-        try (Formatter output = new Formatter(paths.get(1))){
+        try (Formatter output = new Formatter(paths.get(1))) {
             output.format(out.toString());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void setConfig(File configFile) {
         if (configFile != null) {
             updatePaths(configFile.getPath(), paths.get(1));
@@ -67,6 +71,7 @@ public class FileHandeling {
             ex.showAndWait();
         }
     }
+
     public void setHighScoresFile(File highScoresFile) {
         if (highScoresFile != null) {
             updatePaths(paths.get(0), highScoresFile.getPath());
@@ -75,17 +80,19 @@ public class FileHandeling {
             ex.showAndWait();
         }
     }
+
     private void updatePaths(String config, String highScores) {
         paths.set(0, config);
         paths.set(1, highScores);
         String out = String.format("config:%s%nhighScores:%s", config, highScores);
         File path = new File("src/paths.txt");
-        try (Formatter output = new Formatter(path)){
+        try (Formatter output = new Formatter(path)) {
             output.format(out);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public List<Integer> getOptions() {
         List<Integer> options = new ArrayList<>();
         try {

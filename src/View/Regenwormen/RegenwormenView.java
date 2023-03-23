@@ -133,7 +133,7 @@ public class RegenwormenView extends BorderPane {
         this.tegels = new ArrayList<>();
         for (int i = 0; i < tegels.size(); i++) {
             Tegel tegel = tegels.get(i);
-            this.tegels.add(new TegelImage(String.format("resources/Tegel%d.png", tegel.getNumber()), tegel.getNumber(), tegel.getWurms()));
+            this.tegels.add(new TegelImage(String.format("resources/Tegel%d.png", tegel.getNumber()), tegel.getNumber()));
             this.tegels.get(i).setFitHeight(260);
             this.tegels.get(i).setFitWidth(130);
             if (i < 8) {
@@ -154,12 +154,10 @@ public class RegenwormenView extends BorderPane {
                 TegelImage player = this.players.get(i);
                 player.setImage(new Image(String.format("resources/Tegel%d.png", tegel.getNumber())));
                 player.setNumber(tegel.getNumber());
-                player.setWurms(tegel.getWurms());
             } else {
                 TegelImage player = this.players.get(i);
                 player.setImage(new Image(player.getInitPath()));
                 player.setNumber(0);
-                player.setWurms(0);
             }
         }
     }

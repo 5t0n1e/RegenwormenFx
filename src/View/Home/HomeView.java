@@ -33,10 +33,6 @@ public class HomeView extends BorderPane {
         options.setMinSize(200, 100);
     }
 
-    public void start() {
-
-    }
-
     public Button getStart() {
         return start;
     }

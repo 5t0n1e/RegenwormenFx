@@ -64,11 +64,6 @@ public class Roll {
         this.finished = finished;
     }
 
-    public void setTotalNumber(int totalNumber) {
-        this.totalNumber = totalNumber;
-    }
-
-
     public Map<Integer, Integer> getSelected() {
         return selected;
     }

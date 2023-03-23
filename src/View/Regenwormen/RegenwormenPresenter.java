@@ -6,11 +6,7 @@ import View.DiceImage;
 import View.RegenwormenEnd.RegenwormenEndPresenter;
 import View.RegenwormenEnd.RegenwormenEndView;
 import View.TegelImage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class RegenwormenPresenter {
     private RegenwormenModel model;
@@ -28,49 +24,37 @@ public class RegenwormenPresenter {
     }
 
     private void handleEvents() {
-        view.getThrowDice().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (!thrown) {
-                    model.rollDice();
-                    thrown = true;
-                    checkKapotOrFinished();
-                    updateView();
-                }
+        view.getThrowDice().setOnAction(actionEvent -> {
+            if (!thrown) {
+                model.rollDice();
+                thrown = true;
+                checkKapotOrFinished();
+                updateView();
             }
         });
         for (DiceImage dice : view.getDices()) {
-            dice.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if (thrown && view.getThrownDices().getChildren().contains(dice) && model.checkChoice(dice.getFace())) {
-                        //model.checkChoice(dice.getFace())
-                        model.updateRoll(dice.getFace());
-                        updateView();
-                        thrown = false;
-                    }
+            dice.setOnMouseClicked(mouseEvent -> {
+                if (thrown && view.getThrownDices().getChildren().contains(dice) && model.checkChoice(dice.getFace())) {
+                    //model.checkChoice(dice.getFace())
+                    model.updateRoll(dice.getFace());
+                    updateView();
+                    thrown = false;
                 }
             });
         }
-        view.getStopRoll().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (!thrown) {
-                    model.finishRoll();
-                    checkKapotOrFinished();
-                    updateView();
-                }
+        view.getStopRoll().setOnAction(actionEvent -> {
+            if (!thrown) {
+                model.finishRoll();
+                checkKapotOrFinished();
+                updateView();
             }
         });
         for (TegelImage tegel : view.getPlayers()) {
-            tegel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if (model.checkSteal(tegel.getNumber()) && !thrown) {
-                        model.steal();
-                        model.createNextRoll();
-                        updateView();
-                    }
+            tegel.setOnMouseClicked(mouseEvent -> {
+                if (model.checkSteal(tegel.getNumber()) && !thrown) {
+                    model.steal();
+                    model.createNextRoll();
+                    updateView();
                 }
             });
         }

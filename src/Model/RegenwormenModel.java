@@ -3,7 +3,6 @@ package Model;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class RegenwormenModel {
     private List<Tegel> tegels;
@@ -26,17 +25,11 @@ public class RegenwormenModel {
         }
     }
 
-    /**
-     * Initiëren van de spelers in het spel
-     */
     public void setPlayers(List<Player> players) {
         this.players = players;
         currentRoll = new Roll(players.get(0), DICE_AMOUNT);
     }
 
-    /**
-     * Initiëren van de tegels in het spel
-     */
     public List<Tegel> initTegels() {
         List<Tegel> tegels = new LinkedList<>();
         int wurms = 1;
@@ -121,10 +114,7 @@ public class RegenwormenModel {
     }
 
     public boolean checkSteal(int stealNumber) {
-        if (stealNumber == currentRoll.getTotalNumber()) {
-            return true;
-        }
-        return false;
+        return stealNumber == currentRoll.getTotalNumber();
     }
 
     public void steal() {
@@ -147,9 +137,5 @@ public class RegenwormenModel {
 
     public Roll getCurrentRoll() {
         return currentRoll;
-    }
-
-    public int getDICE_AMOUNT() {
-        return DICE_AMOUNT;
     }
 }

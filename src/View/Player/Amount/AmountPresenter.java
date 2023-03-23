@@ -5,8 +5,6 @@ import Model.RegenwormenException;
 import Model.RegenwormenModel;
 import View.Player.Names.NamesPresenter;
 import View.Player.Names.NamesView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 
@@ -23,24 +21,21 @@ public class AmountPresenter {
     }
 
     private void handleEvents() {
-        view.getConfirm().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    String input = view.getPlayerAmountInput().getText();
-                    int inputInt = Integer.parseInt(input);
-                    if (!(inputInt > 1 && inputInt <= 4)) {
-                        throw new RegenwormenException("Geef een nummer tussen 2 en 4!");
-                    }
-                    NamesView namesView = new NamesView(inputInt);
-                    NamesPresenter presenter = new NamesPresenter(model, namesView, fileHandeling);
-                    Scene scene = view.getScene();
-                    scene.setRoot(namesView);
-                } catch (NumberFormatException ex) {
-                    alertBox("Geef een nummer!!");
-                } catch (RegenwormenException ex) {
-                    alertBox(ex.getMessage());
+        view.getConfirm().setOnAction(actionEvent -> {
+            try {
+                String input = view.getPlayerAmountInput().getText();
+                int inputInt = Integer.parseInt(input);
+                if (!(inputInt > 1 && inputInt <= 4)) {
+                    throw new RegenwormenException("Geef een nummer tussen 2 en 4!");
                 }
+                NamesView namesView = new NamesView(inputInt);
+                NamesPresenter presenter = new NamesPresenter(model, namesView, fileHandeling);
+                Scene scene = view.getScene();
+                scene.setRoot(namesView);
+            } catch (NumberFormatException ex) {
+                alertBox("Geef een nummer!!");
+            } catch (RegenwormenException ex) {
+                alertBox(ex.getMessage());
             }
         });
     }

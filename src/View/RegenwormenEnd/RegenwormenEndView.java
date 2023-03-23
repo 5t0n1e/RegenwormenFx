@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.List;
@@ -16,6 +15,7 @@ public class RegenwormenEndView extends BorderPane {
     Button restart;
     Label title;
     Label[] playerNames, info;
+
     public RegenwormenEndView() {
         setBackground(new Background(new BackgroundImage(new Image("resources/home.png"), null, null, null, null)));
     }

@@ -42,10 +42,6 @@ public class OptionsView extends BorderPane {
         return openConfig;
     }
 
-    public Button getOpenHighScores() {
-        return openHighScores;
-    }
-
     public Button getToepassen() {
         return toepassen;
     }

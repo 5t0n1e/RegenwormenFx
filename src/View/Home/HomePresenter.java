@@ -10,8 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 
-import java.io.File;
-
 public class HomePresenter {
     private RegenwormenModel model;
     private HomeView view;
@@ -26,23 +24,17 @@ public class HomePresenter {
     }
 
     private void handleEvents() {
-        view.getStart().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                AmountView amountView = new AmountView();
-                AmountPresenter presentor = new AmountPresenter(model, amountView, fileHandeling);
-                Scene scene = view.getScene();
-                scene.setRoot(amountView);
-            }
+        view.getStart().setOnAction(actionEvent -> {
+            AmountView amountView = new AmountView();
+            AmountPresenter presentor = new AmountPresenter(model, amountView, fileHandeling);
+            Scene scene = view.getScene();
+            scene.setRoot(amountView);
         });
-        view.getOptions().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                OptionsView optionsView = new OptionsView();
-                OptionsPresenter presentor = new OptionsPresenter(model, optionsView, fileHandeling);
-                Scene scene = view.getScene();
-                scene.setRoot(optionsView);
-            }
+        view.getOptions().setOnAction(actionEvent -> {
+            OptionsView optionsView = new OptionsView();
+            OptionsPresenter presentor = new OptionsPresenter(model, optionsView, fileHandeling);
+            Scene scene = view.getScene();
+            scene.setRoot(optionsView);
         });
     }
 
