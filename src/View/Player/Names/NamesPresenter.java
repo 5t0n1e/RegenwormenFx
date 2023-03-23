@@ -1,5 +1,6 @@
 package View.Player.Names;
 
+import Model.FileHandeling;
 import Model.Player;
 import Model.RegenwormenException;
 import Model.RegenwormenModel;
@@ -17,10 +18,12 @@ import java.util.List;
 public class NamesPresenter {
     private RegenwormenModel model;
     private NamesView view;
+    private FileHandeling fileHandeling;
 
-    public NamesPresenter(RegenwormenModel model, NamesView view) {
+    public NamesPresenter(RegenwormenModel model, NamesView view, FileHandeling fileHandeling) {
         this.model = model;
         this.view = view;
+        this.fileHandeling = fileHandeling;
         handleEvents();
     }
 
@@ -38,7 +41,7 @@ public class NamesPresenter {
                         model.setPlayers(players);
                     }
                     RegenwormenView namesView = new RegenwormenView();
-                    RegenwormenPresenter presentor = new RegenwormenPresenter(model, namesView);
+                    RegenwormenPresenter presentor = new RegenwormenPresenter(model, namesView, fileHandeling);
                     Scene scene = view.getScene();
                     scene.setRoot(namesView);
                 } catch (RegenwormenException ex) {

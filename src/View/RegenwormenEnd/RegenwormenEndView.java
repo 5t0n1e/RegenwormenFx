@@ -26,7 +26,7 @@ public class RegenwormenEndView extends BorderPane {
         setTop(title);
 
         restart = new Button("Restart");
-        restart.setAlignment(Pos.CENTER);
+        restart.setAlignment(Pos.BOTTOM_CENTER);
         setBottom(restart);
 
         playerNames = new Label[players.size()];
@@ -47,5 +47,9 @@ public class RegenwormenEndView extends BorderPane {
             centerPane.add(tegels, 2, i);
         }
         setCenter(centerPane);
+    }
+
+    public Button getRestart() {
+        return restart;
     }
 }

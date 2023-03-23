@@ -1,0 +1,2 @@
+config:/home/st0n1e/config.txt
+highScores:/home/st0n1e/highscores.txt

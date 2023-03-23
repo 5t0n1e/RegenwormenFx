@@ -11,12 +11,12 @@ public class Roll {
     private boolean finished;
     private boolean kapot;
 
-    public Roll(Player currentPlayer) {
+    public Roll(Player currentPlayer, int rollSize) {
         this.rolls = new LinkedList<>();
         player = currentPlayer;
         selected = new HashMap<>();
         kapot = false;
-        rollSize = 8;
+        this.rollSize = rollSize;
     }
 
     public void addRoll(int roll) {

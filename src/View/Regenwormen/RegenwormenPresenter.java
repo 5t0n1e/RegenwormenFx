@@ -1,5 +1,6 @@
 package View.Regenwormen;
 
+import Model.FileHandeling;
 import Model.RegenwormenModel;
 import View.DiceImage;
 import View.RegenwormenEnd.RegenwormenEndPresenter;
@@ -14,11 +15,13 @@ import javafx.scene.input.MouseEvent;
 public class RegenwormenPresenter {
     private RegenwormenModel model;
     private RegenwormenView view;
+    private FileHandeling fileHandeling;
     private boolean thrown;
 
-    public RegenwormenPresenter(RegenwormenModel model, RegenwormenView view) {
+    public RegenwormenPresenter(RegenwormenModel model, RegenwormenView view, FileHandeling fileHandeling) {
         this.model = model;
         this.view = view;
+        this.fileHandeling = fileHandeling;
         thrown = false;
         view.initialiseNodes(model.getPlayers(), model.getTegels());
         handleEvents();
@@ -77,7 +80,7 @@ public class RegenwormenPresenter {
         model.checkKapotOrFinished();
         if (model.checkEnd()) {
             RegenwormenEndView endView = new RegenwormenEndView();
-            RegenwormenEndPresenter presentor = new RegenwormenEndPresenter(model, endView);
+            RegenwormenEndPresenter presentor = new RegenwormenEndPresenter(model, endView, fileHandeling);
             Scene scene = view.getScene();
             scene.setRoot(endView);
         }

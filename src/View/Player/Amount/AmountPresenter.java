@@ -1,5 +1,6 @@
 package View.Player.Amount;
 
+import Model.FileHandeling;
 import Model.RegenwormenException;
 import Model.RegenwormenModel;
 import View.Player.Names.NamesPresenter;
@@ -12,10 +13,12 @@ import javafx.scene.control.Alert;
 public class AmountPresenter {
     private RegenwormenModel model;
     private AmountView view;
+    private FileHandeling fileHandeling;
 
-    public AmountPresenter(RegenwormenModel model, AmountView view) {
+    public AmountPresenter(RegenwormenModel model, AmountView view, FileHandeling fileHandeling) {
         this.model = model;
         this.view = view;
+        this.fileHandeling = fileHandeling;
         handleEvents();
     }
 
@@ -26,11 +29,11 @@ public class AmountPresenter {
                 try {
                     String input = view.getPlayerAmountInput().getText();
                     int inputInt = Integer.parseInt(input);
-                    if (!(inputInt > 1 && inputInt <= 8)) {
-                        throw new RegenwormenException("Geef een nummer tussen 1 en 9!");
+                    if (!(inputInt > 1 && inputInt <= 4)) {
+                        throw new RegenwormenException("Geef een nummer tussen 2 en 4!");
                     }
                     NamesView namesView = new NamesView(inputInt);
-                    NamesPresenter presentor = new NamesPresenter(model, namesView);
+                    NamesPresenter presenter = new NamesPresenter(model, namesView, fileHandeling);
                     Scene scene = view.getScene();
                     scene.setRoot(namesView);
                 } catch (NumberFormatException ex) {
