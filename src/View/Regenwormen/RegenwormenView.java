@@ -76,10 +76,10 @@ public class RegenwormenView extends BorderPane {
         }
     }
 
-    public void initialiseNodes(List<Player> players, List<Tegel> tegels) {
+    public void initialiseNodes(List<Player> players, List<Tegel> tegels, Roll currentRoll) {
         updateTegels(tegels);
         showPlayers(players);
-        currentPlayer = new Label(String.format("%s is aan de beurt!!", players.get(0).getName()));
+        currentPlayer = new Label(String.format("%s is aan de beurt!!", currentRoll.getPlayer().getName()));
         topPane.add(currentPlayer, 0, 0, 10, 1);
         topPane.setVgap(20);
         topPane.setHgap(20);

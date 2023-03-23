@@ -19,7 +19,7 @@ public class RegenwormenPresenter {
         this.view = view;
         this.fileHandeling = fileHandeling;
         thrown = false;
-        view.initialiseNodes(model.getPlayers(), model.getTegels());
+        view.initialiseNodes(model.getPlayers(), model.getTegels(), model.getCurrentRoll());
         handleEvents();
     }
 

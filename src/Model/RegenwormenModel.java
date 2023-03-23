@@ -3,6 +3,7 @@ package Model;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class RegenwormenModel {
     private List<Tegel> tegels;
@@ -27,7 +28,8 @@ public class RegenwormenModel {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
-        currentRoll = new Roll(players.get(0), DICE_AMOUNT);
+        Random gen = new Random();
+        currentRoll = new Roll(players.get(gen.nextInt(0, players.size())), DICE_AMOUNT);
     }
 
     public List<Tegel> initTegels() {

@@ -19,12 +19,8 @@ public class FileHandeling {
                 String[] split = line.split(":");
                 if (line.contains("config")) {
                     paths.set(0, split[1]);
-                    System.out.println("Config found");
                 } else if (line.contains("highScores")) {
                     paths.set(1, split[1]);
-                    System.out.println("HighScores found");
-                } else {
-                    System.out.println("niks gevonne kut");
                 }
             }
         } catch (Exception e) {
