@@ -53,9 +53,10 @@ public class RegenwormenModel {
     public void finishRoll() {
         if (!(currentRoll.getSelected().containsKey(6))) {
             currentRoll.setKapot(true);
+        } else {
+            getTegel();
         }
         currentRoll.setFinished(true);
-        getTegel();
     }
 
     public void getTegel() {
