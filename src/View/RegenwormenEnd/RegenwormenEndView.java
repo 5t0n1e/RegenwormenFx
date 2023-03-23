@@ -3,9 +3,11 @@ package View.RegenwormenEnd;
 import Model.Player;
 import Model.Tegel;
 import View.TegelImage;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
@@ -21,7 +23,7 @@ public class RegenwormenEndView extends BorderPane {
     }
 
     public void initPlayers(List<Player> players) {
-        title = new Label(String.format("The game has ended, %s has won!!", players.get(0).getName()));
+        title = new Label(String.format("Het spel is gedaan, %s is gewonnen!!", players.get(0).getName()));
         title.setAlignment(Pos.CENTER);
         setTop(title);
 
@@ -46,6 +48,9 @@ public class RegenwormenEndView extends BorderPane {
             }
             centerPane.add(tegels, 2, i);
         }
+        centerPane.setAlignment(Pos.CENTER);
+        centerPane.setHgap(20);
+        centerPane.setVgap(20);
         setCenter(centerPane);
     }
 

@@ -69,7 +69,7 @@ public class RegenwormenPresenter {
             scene.setRoot(endView);
         }
         if (model.getCurrentRoll().isKapot()) {
-            model.kapot();
+                model.kapot();
             updateView();
             view.kapot();
             thrown = false;

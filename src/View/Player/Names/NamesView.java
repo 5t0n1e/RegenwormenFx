@@ -25,9 +25,9 @@ public class NamesView extends BorderPane {
         for (int i = 0; i < playerNames.length; i++) {
             playerNames[i] = new TextField();
             menu.getChildren().add(playerNames[i]);
-            playerNames[i].setMinSize(100, 20);
-            playerNames[i].setMaxSize(100, 20);
+            playerNames[i].setMinWidth(100);
         }
+        menu.setSpacing(20);
         menu.getChildren().add(confirm);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);

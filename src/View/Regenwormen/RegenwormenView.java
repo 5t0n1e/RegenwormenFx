@@ -43,10 +43,12 @@ public class RegenwormenView extends BorderPane {
         throwDice = new Button();
         throwDice.setBackground(new Background(new BackgroundImage(new Image("resources/throw.png"), null, null, null, null)));
         throwDice.setMinSize(259, 194);
+        throwDice.getStyleClass().remove(0);
 
         stopRoll = new Button();
         stopRoll.setBackground(new Background(new BackgroundImage(new Image("resources/stop.png"), null, null, null, null)));
         stopRoll.setMinSize(259, 194);
+        stopRoll.getStyleClass().remove(0);
 
         Region region1 = new Region();
         HBox.setHgrow(region1, Priority.ALWAYS);
@@ -78,7 +80,7 @@ public class RegenwormenView extends BorderPane {
         updateTegels(tegels);
         showPlayers(players);
         currentPlayer = new Label(String.format("%s is aan de beurt!!", players.get(0).getName()));
-        topPane.add(currentPlayer, 0, 0);
+        topPane.add(currentPlayer, 0, 0, 10, 1);
         topPane.setVgap(20);
         topPane.setHgap(20);
     }
@@ -146,7 +148,8 @@ public class RegenwormenView extends BorderPane {
 
     public void updatePlayers(List<Player> players, Roll currentRoll) {
         currentPlayer.setText(String.format("%s is aan de beurt!!", currentRoll.getPlayer().getName()));
-        topPane.add(currentPlayer, 0, 0);
+        topPane.add(currentPlayer, 0, 0, 10, 1);
+
         for (int i = 0; i < this.players.size(); i++) {
             if (players.get(i).getTegels().size() > 0) {
                 List<Tegel> playerTegels = players.get(i).getTegels();

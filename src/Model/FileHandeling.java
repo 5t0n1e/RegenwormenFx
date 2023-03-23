@@ -41,23 +41,19 @@ public class FileHandeling {
     }
 
     public void updateHighScores(Player winner) {
-        Map<Integer, String> highScores = new TreeMap<>();
+        TreeMap<Integer, String> highScores = new TreeMap<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(paths.get(1)));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 String[] split = line.split("\\s");
-                highScores.put(Integer.parseInt(split[4]), split[0]);
+                highScores.put(Integer.parseInt(split[6]), split[0]);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         highScores.put(winner.getTotalWurms(), winner.getName());
-        StringBuilder out = new StringBuilder();
-        for (Map.Entry<Integer, String> winnerEntry : highScores.entrySet()) {
-            out.append(String.format("%s had %d wormen!!", winnerEntry.getValue(), winnerEntry.getKey()));
-        }
         try (Formatter output = new Formatter(paths.get(1))) {
-            output.format(out.toString());
+            output.format(String.format("%s behoudt momenteel de highscore met %d wormen!!%n", highScores.lastEntry().getValue(), highScores.lastKey()));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

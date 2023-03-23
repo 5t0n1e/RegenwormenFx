@@ -31,6 +31,9 @@ public class HomeView extends BorderPane {
 
         options = new Button("OPTIONS");
         options.setMinSize(200, 100);
+        options.setFont(new Font("Nimbus Mono PS Bold Italic", 40));
+        options.setBackground(new Background(new BackgroundFill(Paint.valueOf("ff946845"), null, null)));
+
     }
 
     public Button getStart() {

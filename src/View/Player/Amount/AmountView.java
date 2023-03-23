@@ -23,6 +23,7 @@ public class AmountView extends BorderPane {
     private void layoutNodes() {
         VBox menu = new VBox(info, playerAmountInput, confirm);
         menu.setAlignment(Pos.CENTER);
+        menu.setSpacing(20);
         setCenter(menu);
         setBackground(new Background(new BackgroundImage(new Image("resources/home.png"), null, null, null, null)));
     }
@@ -31,8 +32,6 @@ public class AmountView extends BorderPane {
         playerAmountInput = new TextField();
         info = new Label("How many players?");
         confirm = new Button("CONFIRM");
-        playerAmountInput.setMinSize(100, 20);
-        playerAmountInput.setMaxSize(100, 20);
     }
 
     public TextField getPlayerAmountInput() {
