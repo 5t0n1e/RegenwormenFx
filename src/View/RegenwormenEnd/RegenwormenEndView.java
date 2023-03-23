@@ -17,6 +17,11 @@ public class RegenwormenEndView extends BorderPane {
     Label title;
     Label[] playerNames, info;
     ImageView[] tegels;
+
+    /**
+     * Initialiseert de gegevens van de gewonnen speler en de bijhorende score
+     * @param players Spelers
+     */
     public void initPlayers(List<Player> players) {
         title = new Label(String.format("The game has ended, %s has won!!", players.get(0).getName()));
         setTop(title);

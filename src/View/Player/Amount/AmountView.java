@@ -18,13 +18,20 @@ public class AmountView extends BorderPane {
         initialiseNodes();
         layoutNodes();
     }
+
+    /**
+     * Zorgt voor layout van de attributen
+     */
     private void layoutNodes() {
         VBox menu = new VBox(info, playerAmountInput, confirm);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/Home.png"), null, null, null, null)));
     }
 
+    /**
+     * Initialiseren van de attributen
+     */
     private void initialiseNodes() {
         playerAmountInput = new TextField();
         info = new Label("How many players?");
@@ -33,6 +40,9 @@ public class AmountView extends BorderPane {
         playerAmountInput.setMaxSize(100, 20);
     }
 
+    /**
+     * Geeft het aantal gekozen spelers
+     */
     public TextField getPlayerAmountInput() {
         return playerAmountInput;
     }

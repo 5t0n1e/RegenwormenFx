@@ -14,13 +14,20 @@ public class HomeView extends BorderPane {
         initialiseNodes();
         layoutNodes();
     }
+
+    /**
+     * Zorgt voor layout van de attributen
+     */
     private void layoutNodes() {
         VBox menu = new VBox(start, options);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/Home.png"), null, null, null, null)));
     }
 
+    /**
+     * Initialiseren van de attributen
+     */
     private void initialiseNodes() {
         start = new Button("START");
         options = new Button("OPTIONS");

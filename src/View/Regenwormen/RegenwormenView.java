@@ -27,7 +27,7 @@ public class RegenwormenView extends BorderPane {
     private VBox centerPanes;
 
     public RegenwormenView() {
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/Home.png"), null, null, null, null)));
         topPane = new GridPane();
         bottemPane = new BorderPane();
         bottemPane.setBackground(new Background(new BackgroundImage(new Image("resources/Spelbord.png"), null, null, null, null)));
@@ -39,9 +39,17 @@ public class RegenwormenView extends BorderPane {
         centerPanes = new VBox(topPane, bottemPane);
         centerPanes.setAlignment(Pos.CENTER);
         setCenter(centerPanes);
-        throwDice = new Button("Gooi dices");
+
+        throwDice = new Button("");
         throwDice.setBackground(new Background(new BackgroundImage(new Image("resources/Werp_dobbelstenen.jpg"), null, null, null, null)));
-        stopRoll = new Button("Stop worp");
+        throwDice.setMinSize(259,194);
+        throwDice.setAlignment(Pos.CENTER);
+
+        stopRoll = new Button("");
+        stopRoll.setBackground(new Background(new BackgroundImage(new Image("resources/Stop_Worp_1.png"), null, null, null, null)));
+        stopRoll.setMinSize(259,194);
+        stopRoll.setAlignment(Pos.BASELINE_RIGHT);
+
         dices = new DiceImage[8];
         thrownDices = new HBox();
         chosenDices = new HBox();
@@ -52,6 +60,9 @@ public class RegenwormenView extends BorderPane {
         }
     }
 
+    /**
+     * Initialiseren van de attributen
+     */
     public void initialiseNodes(List<Player> players, List<Tegel> tegels) {
         updateTegels(tegels);
         showPlayers(players);
@@ -62,6 +73,9 @@ public class RegenwormenView extends BorderPane {
         topPane.setHgap(20);
     }
 
+    /**
+     * Geeft alle spelers weer
+     */
     private void showPlayers(List<Player> players) {
         this.players = new ArrayList<>();
         this.names = new ArrayList<>();
@@ -83,6 +97,10 @@ public class RegenwormenView extends BorderPane {
         setLeft(playersLeft);
     }
 
+    /**
+     * Vernieuwd de gegooide en gekozen dobbelstenen op het spelbord
+     * @param roll Worp
+     */
     public void updateDices(Roll roll) {
         thrownDices.getChildren().clear();
         chosenDices.getChildren().clear();
@@ -107,6 +125,10 @@ public class RegenwormenView extends BorderPane {
 
     }
 
+    /**
+     * Vernieuwd de tegels op het spelbord
+     * @param tegels
+     */
     public void updateTegels(List<Tegel> tegels) {
         topPane.getChildren().clear();
         this.tegels = new ArrayList<>();
@@ -123,6 +145,11 @@ public class RegenwormenView extends BorderPane {
         }
     }
 
+    /**
+     * Vernieuwd de afbeelding van de speler wanneer deze een tegel heeft genomen/verloren uit het spel
+     * @param players spelers
+     * @param currentRoll huidige worp
+     */
     public void updatePlayers(List<Player> players, Roll currentRoll) {
         currentPlayer.setText(String.format("%s is aan de beurt!!", currentRoll.getPlayer().getName()));
         topPane.add(currentPlayer, 0, 0);
@@ -136,13 +163,16 @@ public class RegenwormenView extends BorderPane {
                 player.setWurms(tegel.getWurms());
             } else {
                 TegelImage player = this.players.get(i);
-                player.setImage(new Image("resources/player.png"));
+                player.setImage(new Image("resources/Player1.png"));
                 player.setNumber(0);
                 player.setWurms(0);
             }
         }
     }
 
+    /**
+     * Geeft een alert weer wanneer je kapot bent gespeeld
+     */
     public void kapot() {
         Alert kapot = new Alert(Alert.AlertType.INFORMATION);
         kapot.setTitle("Kapot");
@@ -190,6 +220,10 @@ public class RegenwormenView extends BorderPane {
         return stopRoll;
     }
 
+    /**
+     * Geeft een alert weer van de speler die gewonnen is na afloop van het spel
+     * @param winner Winnaar
+     */
     public void endGame(Player winner) {
         Alert end = new Alert(Alert.AlertType.INFORMATION);
         end.setTitle("Game ended");

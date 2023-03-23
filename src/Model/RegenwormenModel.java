@@ -17,6 +17,10 @@ public class RegenwormenModel {
         TEGEL_AMOUNT = 17;
         tegels = initTegels();
     }
+
+    /**
+     * Zorgt voor een worp tijdens het spel
+     */
     public void rollDice() {
         currentRoll.resetRolls();
         for (int i = 0; i < currentRoll.getrollSize(); i++) {
@@ -48,6 +52,11 @@ public class RegenwormenModel {
     public void updateRoll(int side) {
         currentRoll.sideUpdate(side);
     }
+
+    /**
+     * Voegt keuze van de worp toe aan geselecteerde dobbelstenen
+     * @param face waarde van de dobbelsteen
+     */
     public boolean checkChoice(int face) {
         return !(currentRoll.getSelected().containsKey(face));
     }
@@ -63,6 +72,10 @@ public class RegenwormenModel {
         currentRoll.setFinished(true);
         getTegel();
     }
+
+    /**
+     * Neemt tegel uit het spel en geeft deze aan de speler
+     */
     public void getTegel() {
         // Normaal tegel pak systeem
         Tegel tegel = null;
@@ -78,6 +91,10 @@ public class RegenwormenModel {
             currentRoll.setKapot(true);
         }
     }
+
+    /**
+     * Kijkt of de speler kapot is gespeeld
+     */
     public void kapot() {
         List<Tegel> playerTegels = currentRoll.getPlayer().getTegels();
         currentRoll.setKapot(true);
@@ -89,6 +106,10 @@ public class RegenwormenModel {
         if (tegels.size() > 0)
             tegels.remove(tegels.size() - 1);
     }
+
+    /**
+     * Maakt een nieuwe worp aan
+     */
     public void createNextRoll() {
         Player nextPlayer = null;
         for (int i = 0; i < players.size(); i++) {
@@ -102,6 +123,11 @@ public class RegenwormenModel {
         }
         currentRoll = new Roll(nextPlayer);
     }
+
+    /**
+     * Kijkt of het spel afgelopen is
+     * @return true: er zijn geen tegels meer over in het spel, false: er zijn nog tegels aanwezig in het spel
+     */
     public boolean checkEnd() {
         if (tegels.size() == 0) {
             Collections.sort(players);
@@ -109,16 +135,30 @@ public class RegenwormenModel {
         }
         return false;
     }
+
+    /**
+     * Kijkt of de worp kapot of gedaan is
+     */
     public void checkKapotOrFinished(){
         currentRoll.checkKapot();
         currentRoll.checkFinished();
     }
+
+    /**
+     * Kijkt na of er een tegel gesteeld kan worden van een andere speler
+     * @param stealNumber steel tegel met waarde
+     * @return true: er kan gesteeld worden, false: er kan niet gesteeld worden
+     */
     public boolean checkSteal(int stealNumber) {
         if (stealNumber == currentRoll.getTotalNumber()) {
             return true;
         }
         return false;
     }
+
+    /**
+     * Maakt het mogelijk om een tegel van een andere speler te stelen
+     */
     public void steal() {
         for (Player stealPlayer : players) {
             List<Tegel> playerTegels = stealPlayer.getTegels();

@@ -18,6 +18,10 @@ public class NamesView extends BorderPane {
         initialiseNodes(nameAmount);
         layoutNodes();
     }
+
+    /**
+     * Zorgt voor layout van de attributen
+     */
     private void layoutNodes() {
         VBox menu = new VBox(info);
         for (int i = 0; i < playerNames.length; i++) {
@@ -29,15 +33,21 @@ public class NamesView extends BorderPane {
         menu.getChildren().add(confirm);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);
-        setBackground(new Background(new BackgroundImage(new Image("resources/Home_Achtergrond.jpg"), null, null, null, null)));
+        setBackground(new Background(new BackgroundImage(new Image("resources/Home.png"), null, null, null, null)));
     }
 
+    /**
+     * Initialiseren van de attributen
+     */
     private void initialiseNodes(int nameAmount) {
         playerNames = new TextField[nameAmount];
         info = new Label("Names?");
         confirm = new Button("CONFIRM");
     }
 
+    /**
+     * Geeft de spelersnamen
+     */
     public TextField[] getPlayerNames() {
         return playerNames;
     }

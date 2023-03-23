@@ -10,6 +10,10 @@ public class Main extends Application{
         Application.launch(args);
     }
 
+    /**
+     * Opmaak van het gehele spel
+     * @param stage primaire podium voor deze toepassing, waarop de toepassingsscène kan worden ingesteld.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         HomeView view = new HomeView();
