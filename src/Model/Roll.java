@@ -19,10 +19,19 @@ public class Roll {
         this.rollSize = rollSize;
     }
 
+    /**
+     * Voegt een worp toe aan de lijst.
+     * @param roll aantal ogen van de worp
+     */
     public void addRoll(int roll) {
         rolls.add(roll);
     }
 
+    /**
+     * Update de geselecteerde dobbelstenen en hun waarden.
+     * Verwijdert de geselecteerde dobbelstenen uit de lijst.
+     * @param side De zijde van de dobbelsteen die geselecteerd is
+     */
     public void sideUpdate(int side) {
         selected.put(side, Collections.frequency(rolls, side));
         //rolls.removeIf(integer -> integer == side);
@@ -35,12 +44,20 @@ public class Roll {
         }
     }
 
+    /**
+     * Controleert of de worp voltooid is of niet.
+     * Als de lijst van geworpen getallen leeg is, wordt de worp als voltooid beschouwd.
+     */
     public void checkFinished() {
         if (rolls.size() == 0) {
             finished = true;
         }
     }
 
+    /**
+     * Controleert of de worp kapot is of niet.
+     * Als alle ongeselecteerde getallen gelijk zijn aan elkaar, wordt de worp als kapot beschouwd.
+     */
     public void checkKapot() {
         int count = 0;
         for (Integer checkRoll : rolls) {
@@ -52,6 +69,9 @@ public class Roll {
             kapot = count == rolls.size();
     }
 
+    /**
+     * Reset de rolls lijst.
+     */
     public void resetRolls() {
         rolls = new ArrayList<>();
     }

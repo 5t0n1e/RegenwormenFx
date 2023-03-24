@@ -12,6 +12,12 @@ public class RegenwormenModel {
     private Roll currentRoll;
     private final int TEGEL_AMOUNT, DICE_AMOUNT;
 
+    /**
+     * Constructor voor de klasse RegenwormenModel.
+     *
+     * @param tegelAmount Het aantal tegels dat beschikbaar is in het spel.
+     * @param diceAmount Het aantal dobbelstenen dat gebruikt wordt in het spel.
+     */
     public RegenwormenModel(int tegelAmount, int diceAmount) {
         dice = new Dice();
         TEGEL_AMOUNT = tegelAmount;
@@ -19,6 +25,10 @@ public class RegenwormenModel {
         tegels = initTegels();
     }
 
+    /**
+     * Methode om de dobbelstenen te rollen.
+     * Reset de huidige rol en rolt dan alle niet geselecteerde dobbelstenen.
+     */
     public void rollDice() {
         currentRoll.resetRolls();
         for (int i = 0; i < currentRoll.getrollSize(); i++) {
@@ -26,12 +36,20 @@ public class RegenwormenModel {
         }
     }
 
+    /**
+     * Methode om de spelers in te stellen.
+     * @param players Een lijst van alle spelers die aan het spel meedoen.
+     */
     public void setPlayers(List<Player> players) {
         this.players = players;
         Random gen = new Random();
         currentRoll = new Roll(players.get(gen.nextInt(0, players.size())), DICE_AMOUNT);
     }
 
+    /**
+     * Initialiseert alle tegels in het spel en returned deze.
+     * @return Lijst van alle tegels in het spel.
+     */
     public List<Tegel> initTegels() {
         List<Tegel> tegels = new LinkedList<>();
         int wurms = 1;
@@ -44,14 +62,25 @@ public class RegenwormenModel {
         return tegels;
     }
 
+    /**
+     * Update de huidige worp met het gekozen aantal ogen.
+     * @param side Het aantal ogen dat geselecteerd is.
+     */
     public void updateRoll(int side) {
         currentRoll.sideUpdate(side);
     }
 
+    /**
+     * Controleert of het gekozen aantal ogen niet al geselecteerd is.
+     * @param face Het aantal ogen
+     */
     public boolean checkChoice(int face) {
         return !(currentRoll.getSelected().containsKey(face));
     }
 
+    /**
+     * Beëindig de huidige worp en, checkt nog eens of deze kapot is.
+     */
     public void finishRoll() {
         if (!(currentRoll.getSelected().containsKey(6))) {
             currentRoll.setKapot(true);
@@ -61,6 +90,10 @@ public class RegenwormenModel {
         currentRoll.setFinished(true);
     }
 
+    /**
+     * Selecteert een tegel op basis van het totale aantal ogen dat werd gegooid en voegt deze toe aan de speler.
+     * Als er geen tegel gevonden wordt, wordt de huidige worp als "kapot" gemarkeerd.
+     */
     public void getTegel() {
         // Normaal tegel pak systeem
         Tegel tegel = null;
@@ -77,6 +110,9 @@ public class RegenwormenModel {
         }
     }
 
+    /**
+     * Verwijdert tegel van de speler en/of uit het spel wanneer deze speler kapot gaat in zijn worp.
+     */
     public void kapot() {
         List<Tegel> playerTegels = currentRoll.getPlayer().getTegels();
         currentRoll.setKapot(true);
@@ -89,6 +125,9 @@ public class RegenwormenModel {
             tegels.remove(tegels.size() - 1);
     }
 
+    /**
+     * Maakt een nieuwe worp aan.
+     */
     public void createNextRoll() {
         Player nextPlayer = null;
         for (int i = 0; i < players.size(); i++) {
@@ -103,6 +142,10 @@ public class RegenwormenModel {
         currentRoll = new Roll(nextPlayer, DICE_AMOUNT);
     }
 
+    /**
+     * Controleert of het spel beëindigd is.
+     * @return of het spel is beëindigd.
+     */
     public boolean checkEnd() {
         if (tegels.size() == 0) {
             Collections.sort(players);
@@ -111,15 +154,26 @@ public class RegenwormenModel {
         return false;
     }
 
+    /**
+     * Controleert of de huidige worp leiden tot een "kapotte" of "afgeronde" worp.
+     */
     public void checkKapotOrFinished() {
         currentRoll.checkKapot();
         currentRoll.checkFinished();
     }
 
+    /**
+     * Controleert of het gegeven getal overeenkomt met het totale getal van de huidige rol.
+     * @param stealNumber het getal dat moet worden vergeleken met het totale getal van de huidige rol.
+     * @return  of het gegeven getal overeenkomt met het totale getal van de huidige rol.
+     */
     public boolean checkSteal(int stealNumber) {
         return stealNumber == currentRoll.getTotalNumber();
     }
 
+    /**
+     * Steelt een tegel van de speler die een steen heeft met hetzelfde getal als het totaal van de huidige worp.
+     */
     public void steal() {
         for (Player stealPlayer : players) {
             List<Tegel> playerTegels = stealPlayer.getTegels();

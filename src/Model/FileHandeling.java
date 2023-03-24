@@ -8,6 +8,10 @@ import java.util.*;
 public class FileHandeling {
     List<String> paths;
 
+    /**
+     * Initialiseert de lijst van paden en leest de paden in uit het bestand "src/paths.txt".
+     * Het slaat de paden op in de lijst van paden. Als het bestand niet kan worden gelezen, wordt er een foutmelding afgedrukt.
+     */
     public FileHandeling() {
         paths = new ArrayList<>();
         paths.add(null);
@@ -28,6 +32,10 @@ public class FileHandeling {
         }
     }
 
+    /**
+     * Methode om het configuratiebestand bij te werken. Het schrijft een string naar het bestand op het opgegeven pad.
+     * @param out De string die moet worden geschreven.
+     */
     public void updateConfig(String out) {
         try (Formatter output = new Formatter(paths.get(0))) {
             output.format(out);
@@ -36,6 +44,11 @@ public class FileHandeling {
         }
     }
 
+    /**
+     * Methode om de scores in het highScores-bestand bij te werken. Het sorteert de scores van hoog naar laag en schrijft
+     * ze naar het bestand op het opgegeven pad.
+     * @param winner De speler die het spel heeft gewonnen en wiens score aan het bestand moet worden toegevoegd.
+     */
     public void updateHighScores(Player winner) {
         TreeMap<Integer, String> highScores = new TreeMap<>();
         try {
@@ -55,6 +68,10 @@ public class FileHandeling {
         }
     }
 
+    /**
+     * Update het configuratie bestandspad in het geheugen en slaat deze op in een tekstbestand.
+     * @param configFile Het bestand dat de configuratie bevat.
+     */
     public void setConfig(File configFile) {
         if (configFile != null) {
             updatePaths(configFile.getPath(), paths.get(1));
@@ -64,6 +81,10 @@ public class FileHandeling {
         }
     }
 
+    /**
+     * Update het high scores bestandspad in het geheugen en slaat deze op in een tekstbestand.
+     * @param highScoresFile Het bestand dat de high scores bevat.
+     */
     public void setHighScoresFile(File highScoresFile) {
         if (highScoresFile != null) {
             updatePaths(paths.get(0), highScoresFile.getPath());
@@ -73,6 +94,11 @@ public class FileHandeling {
         }
     }
 
+    /**
+     * Update de twee bestandspaden in het geheugen en slaat deze op in een tekstbestand.
+     * @param config Het bestand dat de configuratie bevat.
+     * @param highScores Het bestand dat de high scores bevat.
+     */
     private void updatePaths(String config, String highScores) {
         paths.set(0, config);
         paths.set(1, highScores);
@@ -85,6 +111,10 @@ public class FileHandeling {
         }
     }
 
+    /**
+     * Deze methode leest de opties uit het configuratiebestand en retourneert ze als een lijst van integers.
+     * @return de lijst van opties uit het configuratiebestand
+     */
     public List<Integer> getOptions() {
         List<Integer> options = new ArrayList<>();
         try {
