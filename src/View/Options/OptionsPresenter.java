@@ -1,4 +1,4 @@
-package View.options;
+package View.Options;
 
 import Model.FileHandeling;
 import Model.RegenwormenModel;

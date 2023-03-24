@@ -8,7 +8,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class HomeView extends BorderPane {
-    private Button start, options;
+    private Button start, options, rules;
 
     public HomeView() {
         initialiseNodes();
@@ -16,7 +16,7 @@ public class HomeView extends BorderPane {
     }
 
     private void layoutNodes() {
-        VBox menu = new VBox(start, options);
+        VBox menu = new VBox(start, options, rules);
         menu.setSpacing(20);
         menu.setAlignment(Pos.CENTER);
         setCenter(menu);
@@ -30,6 +30,8 @@ public class HomeView extends BorderPane {
         options = new Button("OPTIONS");
         options.setMinSize(200, 100);
 
+        rules = new Button("REGELS");
+        rules.setMinSize(200, 100);
     }
 
     public Button getStart() {
@@ -38,5 +40,9 @@ public class HomeView extends BorderPane {
 
     public Button getOptions() {
         return options;
+    }
+
+    public Button getRules() {
+        return rules;
     }
 }

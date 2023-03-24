@@ -4,11 +4,13 @@ import Model.FileHandeling;
 import Model.RegenwormenModel;
 import View.Player.Amount.AmountPresenter;
 import View.Player.Amount.AmountView;
-import View.options.OptionsPresenter;
-import View.options.OptionsView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import View.Options.OptionsPresenter;
+import View.Options.OptionsView;
 import javafx.scene.Scene;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class HomePresenter {
     private RegenwormenModel model;
@@ -35,6 +37,15 @@ public class HomePresenter {
             OptionsPresenter presentor = new OptionsPresenter(model, optionsView, fileHandeling);
             Scene scene = view.getScene();
             scene.setRoot(optionsView);
+        });
+        view.getRules().setOnAction(ActionEvent -> {
+            try {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(new File("src/spelregels.docx"));
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         });
     }
 
