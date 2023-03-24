@@ -23,7 +23,7 @@ public class FileHandeling {
                 String[] split = line.split(":");
                 if (line.contains("config")) {
                     paths.set(0, split[1]);
-                } else if (line.contains("highScores")) {
+                } else if (line.contains("highScore")) {
                     paths.set(1, split[1]);
                 }
             }
@@ -33,7 +33,7 @@ public class FileHandeling {
     }
 
     /**
-     * Methode om het configuratiebestand bij te werken. Het schrijft een string naar het bestand op het opgegeven pad.
+     * Werkt he configuratiebestand bij. Het schrijft een string naar het bestand op het opgegeven pad.
      * @param out De string die moet worden geschreven.
      */
     public void updateConfig(String out) {
@@ -45,24 +45,41 @@ public class FileHandeling {
     }
 
     /**
-     * Methode om de scores in het highScores-bestand bij te werken. Het sorteert de scores van hoog naar laag en schrijft
-     * ze naar het bestand op het opgegeven pad.
-     * @param winner De speler die het spel heeft gewonnen en wiens score aan het bestand moet worden toegevoegd.
+     * Update de highscore aan de hand van de oude highscore te vergelijken met de winner die binnen komt.
+     * De winner met de meeste wormen wordt vervolgens weg geschreven.
+     * @param winner De speler die het spel heeft gewonnen, "Potentiële highscore houder".
      */
-    public void updateHighScores(Player winner) {
-        TreeMap<Integer, String> highScores = new TreeMap<>();
+    public void updateHighScore(Player winner) {
+        TreeMap<Integer, String> highScore = new TreeMap<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(paths.get(1)));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 String[] split = line.split("\\s");
-                highScores.put(Integer.parseInt(split[6]), split[0]);
+                highScore.put(Integer.parseInt(split[6]), split[0]);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        highScores.put(winner.getTotalWurms(), winner.getName());
+        highScore.put(winner.getTotalWurms(), winner.getName());
         try (Formatter output = new Formatter(paths.get(1))) {
-            output.format(String.format("%s behoudt momenteel de highscore met %d wormen!!%n", highScores.lastEntry().getValue(), highScores.lastKey()));
+            output.format(String.format("%s behoudt momenteel de highscore met %d wormen!!%n", highScore.lastEntry().getValue(), highScore.lastKey()));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Update de twee bestandspaden in het geheugen en slaat deze op in een tekstbestand.
+     * @param config Het bestandspad dat de configuratie bevat.
+     * @param highScore Het bestandspad dat de high scores bevat.
+     */
+    private void updatePaths(String config, String highScore) {
+        paths.set(0, config);
+        paths.set(1, highScore);
+        String out = String.format("config:%s%nhighScore:%s", config, highScore);
+        File path = new File("src/paths.txt");
+        try (Formatter output = new Formatter(path)) {
+            output.format(out);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -83,31 +100,14 @@ public class FileHandeling {
 
     /**
      * Update het high scores bestandspad in het geheugen en slaat deze op in een tekstbestand.
-     * @param highScoresFile Het bestand dat de high scores bevat.
+     * @param highScoreFile Het bestand dat de high scores bevat.
      */
-    public void setHighScoresFile(File highScoresFile) {
-        if (highScoresFile != null) {
-            updatePaths(paths.get(0), highScoresFile.getPath());
+    public void setHighScoreFile(File highScoreFile) {
+        if (highScoreFile != null) {
+            updatePaths(paths.get(0), highScoreFile.getPath());
         } else {
             Alert ex = new Alert(Alert.AlertType.ERROR, "Kies een bestand!!");
             ex.showAndWait();
-        }
-    }
-
-    /**
-     * Update de twee bestandspaden in het geheugen en slaat deze op in een tekstbestand.
-     * @param config Het bestand dat de configuratie bevat.
-     * @param highScores Het bestand dat de high scores bevat.
-     */
-    private void updatePaths(String config, String highScores) {
-        paths.set(0, config);
-        paths.set(1, highScores);
-        String out = String.format("config:%s%nhighScores:%s", config, highScores);
-        File path = new File("src/paths.txt");
-        try (Formatter output = new Formatter(path)) {
-            output.format(out);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
     }
 

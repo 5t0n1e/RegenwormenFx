@@ -18,7 +18,7 @@ public class RegenwormenEndPresenter {
         this.model = model;
         this.fileHandeling = fileHandeling;
         List<Player> players = model.getPlayers();
-        fileHandeling.updateHighScores(players.get(0));
+        fileHandeling.updateHighScore(players.get(0));
         view.initPlayers(players);
         handleEvents();
     }

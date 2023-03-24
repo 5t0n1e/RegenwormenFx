@@ -26,7 +26,7 @@ public class OptionsPresenter {
 
     private void handleEvents() {
         view.getOpenConfig().setOnAction(actionEvent -> fileHandeling.setConfig(getFile()));
-        view.openHighScores.setOnAction(actionEvent -> fileHandeling.setHighScoresFile(getFile()));
+        view.openHighScores.setOnAction(actionEvent -> fileHandeling.setHighScoreFile(getFile()));
         view.getToepassen().setOnAction(actionEvent -> {
             int tegels = 0;
             int dices = 0;
