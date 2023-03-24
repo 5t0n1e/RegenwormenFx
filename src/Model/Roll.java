@@ -21,7 +21,7 @@ public class Roll {
 
     /**
      * Voegt een worp toe aan de lijst.
-     * @param roll worp
+     * @param roll aantal ogen van de worp
      */
     public void addRoll(int roll) {
         rolls.add(roll);
@@ -69,6 +69,9 @@ public class Roll {
             kapot = count == rolls.size();
     }
 
+    /**
+     * Reset de rolls lijst.
+     */
     public void resetRolls() {
         rolls = new ArrayList<>();
     }

@@ -26,7 +26,7 @@ public class RegenwormenModel {
 
     /**
      * Methode om de dobbelstenen te rollen.
-     * Reset de huidige rol en rolt dan alle dobbelstenen.
+     * Reset de huidige rol en rolt dan alle niet geselecteerde dobbelstenen.
      */
     public void rollDice() {
         currentRoll.resetRolls();
@@ -45,7 +45,7 @@ public class RegenwormenModel {
     }
 
     /**
-     * Initialiseert alle tegels in het spel en voegt ze toe aan de lijst van tegels.
+     * Initialiseert alle tegels in het spel en returned deze.
      * @return Lijst van alle tegels in het spel.
      */
     public List<Tegel> initTegels() {
@@ -69,15 +69,15 @@ public class RegenwormenModel {
     }
 
     /**
-     * Controleert of een bepaald getal is gekozen.
-     * @param face Waarde van de dobbelsteen
+     * Controleert of het gekozen aantal ogen niet al geselecteerd is.
+     * @param face Het aantal ogen
      */
     public boolean checkChoice(int face) {
         return !(currentRoll.getSelected().containsKey(face));
     }
 
     /**
-     * Beëindig de huidige worp.
+     * Beëindig de huidige worp en, checkt nog eens of deze kapot is.
      */
     public void finishRoll() {
         if (!(currentRoll.getSelected().containsKey(6))) {
@@ -108,7 +108,7 @@ public class RegenwormenModel {
     }
 
     /**
-     * Verwijdert tegel van de speler of uit het spel wanneer deze speler kapot gaat in zijn worp.
+     * Verwijdert tegel van de speler en/of uit het spel wanneer deze speler kapot gaat in zijn worp.
      */
     public void kapot() {
         List<Tegel> playerTegels = currentRoll.getPlayer().getTegels();
@@ -123,7 +123,7 @@ public class RegenwormenModel {
     }
 
     /**
-     * Maakt een nieuwe worp aan
+     * Maakt een nieuwe worp aan.
      */
     public void createNextRoll() {
         Player nextPlayer = null;
@@ -140,8 +140,8 @@ public class RegenwormenModel {
     }
 
     /**
-     * Controleert of het spel beëindigd is
-     * @return true: spel is beëindigd, false: spel is nog niet gedaan
+     * Controleert of het spel beëindigd is.
+     * @return of het spel is beëindigd.
      */
     public boolean checkEnd() {
         if (tegels.size() == 0) {
@@ -152,7 +152,7 @@ public class RegenwormenModel {
     }
 
     /**
-     * Controleert of de huidige worp resulteert in een "kapotte" of "afgeronde" worp.
+     * Controleert of de huidige worp leiden tot een "kapotte" of "afgeronde" worp.
      */
     public void checkKapotOrFinished() {
         currentRoll.checkKapot();
@@ -162,7 +162,7 @@ public class RegenwormenModel {
     /**
      * Controleert of het gegeven getal overeenkomt met het totale getal van de huidige rol.
      * @param stealNumber het getal dat moet worden vergeleken met het totale getal van de huidige rol.
-     * @return true als het gegeven getal overeenkomt met het totale getal van de huidige rol.
+     * @return  of het gegeven getal overeenkomt met het totale getal van de huidige rol.
      */
     public boolean checkSteal(int stealNumber) {
         return stealNumber == currentRoll.getTotalNumber();
