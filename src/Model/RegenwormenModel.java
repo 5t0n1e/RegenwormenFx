@@ -180,6 +180,7 @@ public class RegenwormenModel {
             if (playerTegels.size() > 0 && playerTegels.get(playerTegels.size() - 1).getNumber() == currentRoll.getTotalNumber()) {
                 currentRoll.getPlayer().addTegel(playerTegels.get(playerTegels.size() - 1));
                 stealPlayer.removeTegel(currentRoll.getTotalNumber());
+                return;
             }
         }
     }
